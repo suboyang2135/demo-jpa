@@ -1,5 +1,7 @@
 package com.ikang.repository;
 
+import com.ikang.dto.UserEmailNameDTO;
+import com.ikang.dto.UserOnlyName;
 import com.ikang.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -38,5 +40,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // 根据lastName删除数据，同时返回删除的数据
     List<User> removeByLastName(String lastName);
+
+    UserEmailNameDTO findByEmail(String email);
+
+    UserOnlyName findByAddress(String address);
 
 }

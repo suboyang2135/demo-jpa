@@ -1,6 +1,8 @@
 package com.ikang.repository;
 
 import com.ikang.ApplicationTests;
+import com.ikang.dto.UserEmailNameDTO;
+import com.ikang.dto.UserOnlyName;
 import com.ikang.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
@@ -24,9 +26,10 @@ public class UserRepositoryTest extends ApplicationTests {
     @Test
     public void save() {
         User user = new User();
-        user.setEmail("jack123@163.com");
-        user.setFirstName("jack");
+        user.setEmail("tom123@163.com");
+        user.setFirstName("tom");
         user.setLastName("rale");
+        user.setAddress("beijing");
         User save = userRepository.save(user);
         assert null != save.getId();
     }
@@ -72,5 +75,20 @@ public class UserRepositoryTest extends ApplicationTests {
         String lastName = "rale";
         List<User> users = userRepository.removeByLastName(lastName);
         assert CollectionUtils.isNotEmpty(users);
+    }
+
+    @Test
+    public void findByEmail() {
+        String email = "jack123@163.com";
+        UserEmailNameDTO emailNameDTO = userRepository.findByEmail(email);
+        assert null != emailNameDTO;
+    }
+
+    @Test
+    public void findByAddress() {
+        String address = "beijing";
+        UserOnlyName userOnlyName = userRepository.findByAddress(address);
+        logger.info(userOnlyName.getLastName());
+        logger.info(userOnlyName.getEmail());
     }
 }
