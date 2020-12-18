@@ -91,4 +91,11 @@ public class UserRepositoryTest extends ApplicationTests {
         logger.info(userOnlyName.getLastName());
         logger.info(userOnlyName.getEmail());
     }
+
+    @Test
+    public void findByQuery() {
+        String nameParam = "tom";
+        User user = userRepository.findByQuery(nameParam);
+        assert null != user;
+    }
 }
