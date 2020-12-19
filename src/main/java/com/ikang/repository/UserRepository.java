@@ -57,6 +57,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select u.* from r_user u where u.email = ?1", nativeQuery = true)
     User findByEmailAddress(String email);
 
+    // 模糊后缀查询
     @Query("select u from r_user u where u.firstName like %?1")
     List<User> findByFirstNameEndsWith(String firstName);
 

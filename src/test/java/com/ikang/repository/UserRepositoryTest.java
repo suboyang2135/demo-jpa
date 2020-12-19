@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author xuyang
@@ -22,6 +24,22 @@ public class UserRepositoryTest extends ApplicationTests {
 
     @Resource
     private UserRepository userRepository;
+
+    @Test
+    public void batchSave() {
+        List<User> users = IntStream.range(1, 10000)
+                .mapToObj(i -> {
+                    User user = new User();
+                    user.setEmail("tom123@163.com" + i);
+                    user.setFirstName("tom" + i);
+                    user.setLastName("rale" + i);
+                    user.setAddress("beijing" + i);
+                    return user;
+                }).collect(Collectors.toList());
+
+        List<User> list = userRepository.saveAll(users);
+        logger.info("size = {}", list.size());
+    }
 
     @Test
     public void save() {
